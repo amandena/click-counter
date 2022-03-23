@@ -11,21 +11,23 @@ Enzyme.configure({ adapter: new EnzymeAdapter() })
 */ 
 const setup = () => shallow(<App/>)
 
+const findByTestAttr = (wrapper, val) => wrapper.find(`[data-test='${val}']`)
+
 test('renders without error', () => {
   const wrapper = setup()
-  const appComponent = wrapper.find("[data-test='component-app']")
+  const appComponent = findByTestAttr(wrapper, 'component-app')
   expect(appComponent.length).toBe(1)
 })
 
 test('renders increment button', () => {
   const wrapper = setup()
-  const button = wrapper.find("[data-test='increment-button']")
+  const button = findByTestAttr(wrapper, 'increment-button')
   expect(button.length).toBe(1)
 })
 
 test('renders counter display', () => {
   const wrapper = setup()
-  const counterDisplay = wrapper.find("[data-test='counter-display']")
+  const counterDisplay = findByTestAttr(wrapper, 'counter-display')
   expect(counterDisplay.length).toBe(1)
 })
 
