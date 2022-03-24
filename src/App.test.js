@@ -30,7 +30,8 @@ test('renders counter display', () => {
 })
 
 test('counter display starts at 0', () => {
-
+  const count = findByTestAttr(wrapper, 'count').text()
+  expect(count).toBe('0')
 })
 
 test('clicking button increments counter display', () => {
