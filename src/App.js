@@ -1,12 +1,18 @@
-import './App.css';
+import { useState } from 'react'
+import './App.css'
 
 function App() {
+  const [count, setCount] = useState(0)
+
   return (
     <div data-test='component-app'>
-      <h1 data-test='counter-display'>The counter display is currently</h1>
+      <h1 data-test='counter-display'>
+        The counter display is currently&nbsp
+        <span data-test='count'>{count}</span>
+      </h1>
       <button data-test='increment-button'>Increment counter</button>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
