@@ -9,7 +9,7 @@ Enzyme.configure({ adapter: new EnzymeAdapter() })
  * @function setup
  * @returns {ShallowWrapper}
 */ 
-const setup = () => shallow(<App/>)
+const setup = (props = {}) => shallow(<App {...props}/>)
 
 const findByTestAttr = (wrapper, val) => wrapper.find(`[data-test='${val}']`)
 const wrapper = setup()
@@ -21,6 +21,11 @@ test('renders without error', () => {
 
 test('renders increment button', () => {
   const button = findByTestAttr(wrapper, 'increment-button')
+  expect(button.length).toBe(1)
+})
+
+test('renders decrement button', () => {
+  const button = findByTestAttr(wrapper, 'decrement-button')
   expect(button.length).toBe(1)
 })
 
@@ -42,4 +47,16 @@ test('clicking button increments counter display', () => {
   // find the display, and test that the number has been incremented
   const count = findByTestAttr(wrapper, 'count').text()
   expect(count).toBe('1')
+})
+
+test('clicking button decrements counter display', () => {
+  const wrapper = setup()
+  const incButton = findByTestAttr(wrapper, 'increment-button')
+  incButton.simulate('click')
+  
+  const decButton = findByTestAttr(wrapper, 'decrement-button')
+  decButton.simulate('click')
+  
+  const count = findByTestAttr(wrapper, 'count').text()
+  expect(count).toBe('0')
 })
