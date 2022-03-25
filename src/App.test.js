@@ -66,3 +66,34 @@ test('clicking button decrements counter display', () => {
   expect(count).toBe('0')
 })
 
+test('error does not display when not needed', () => {
+  const wrapper = setup()
+  const errorDiv = findByTestAttr(wrapper, 'error-message')
+  const errorHasHiddenClass = errorDiv.hasClass('hidden')
+  expect(errorHasHiddenClass).toBe(true)
+})
+
+test('error message displays when decrement is clicked at a zero counter', () => {
+  const wrapper = setup()
+  const decButton = findByTestAttr(wrapper, 'decrement-button')
+  decButton.simulate('click')
+  
+  const errorDiv = findByTestAttr(wrapper, 'error-message')
+  const errorHasHiddenClass = errorDiv.hasClass('hidden')
+  expect(errorHasHiddenClass).toBe(false)
+
+  const count = findByTestAttr(wrapper, 'count').text()
+  expect(count).toBe('0')
+})
+
+test('error message disappears when increment button is clicked', () => {
+  const wrapper = setup()
+  const decButton = findByTestAttr(wrapper, 'decrement-button')
+  decButton.simulate('click')
+  const incButton = findByTestAttr(wrapper, 'increment-button')
+  incButton.simulate('click')
+
+  const errorDiv = findByTestAttr(wrapper, 'error-message')
+  const errorHasHiddenClass = errorDiv.hasClass('hidden')
+  expect(errorHasHiddenClass).toBe(true)
+})
